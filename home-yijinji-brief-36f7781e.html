@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.5">
+    <title>一竞技 · 轻量化场景导航</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+            background-color: #f9f7f5;
+            color: #1e201f;
+            line-height: 1.6;
+        }
+
+        a {
+            color: #bf6f4a;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.2s, border-bottom 0.2s;
+            border-bottom: 1px solid transparent;
+        }
+
+        a:hover,
+        a:focus-visible {
+            color: #9b5639;
+            border-bottom-color: #9b5639;
+            outline: none;
+        }
+
+        /* 深色头图 —— 极简但留有叙述空间 */
+        .hero {
+            background: linear-gradient(163deg, #17201e 0%, #1f2b28 60%, #2c3b37 100%);
+            color: #e6e3df;
+            padding: 3.6rem 1.5rem 5rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 2.8rem;
+            background: linear-gradient(to bottom, transparent, #f9f7f5);
+        }
+
+        .hero h1 {
+            font-size: 2.4rem;
+            font-weight: 360;
+            letter-spacing: 2px;
+            margin-bottom: 0.5rem;
+            color: #f0ece6;
+        }
+
+        .hero .sub {
+            font-size: 1.1rem;
+            color: #b7aea8;
+            max-width: 600px;
+            margin: 0.4rem auto 1.6rem;
+            font-weight: 330;
+        }
+
+        .hero .tagline {
+            display: inline-block;
+            background: rgba(255, 235, 215, 0.07);
+            border: 1px solid rgba(229, 216, 200, 0.18);
+            padding: 0.4rem 1.2rem;
+            border-radius: 40px;
+            font-size: 0.85rem;
+            letter-spacing: 1px;
+            color: #d9cfc2;
+            backdrop-filter: blur(1px);
+        }
+
+        /* 导航 —— 轻量顶部，无JS */
+        .top-nav {
+            background: #f2efea;
+            padding: 0.7rem 1.5rem;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 1rem 2.5rem;
+            border-bottom: 1px solid #dad5cc;
+            font-size: 0.92rem;
+        }
+
+        .top-nav a {
+            color: #4b4a47;
+            border-bottom: none;
+            font-weight: 400;
+            padding: 0.2rem 0;
+            position: relative;
+        }
+
+        .top-nav a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: #bf6f4a;
+            transition: width 0.25s;
+        }
+
+        .top-nav a:hover::after,
+        .top-nav a:focus-visible::after {
+            width: 100%;
+        }
+
+        /* 正文区域，浅色底 */
+        .container {
+            max-width: 1080px;
+            margin: 0 auto;
+            padding: 1.8rem 1.5rem 3.5rem;
+        }
+
+        section {
+            margin-bottom: 3.2rem;
+        }
+
+        section:last-of-type {
+            margin-bottom: 1.5rem;
+        }
+
+        .intro p {
+            font-size: 1.05rem;
+            max-width: 720px;
+            margin: 0.6rem auto;
+            text-align: center;
+        }
+
+        .intro {
+            text-align: center;
+            padding: 0.3rem 0 1.2rem;
+        }
+
+        .intro .inset-link {
+            display: inline-block;
+            margin-top: 0.3rem;
+        }
+
+        /* 三个场景模块 —— 卡片 */
+        .scenes {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+            gap: 2rem 1.8rem;
+            margin-top: 2rem;
+        }
+
+        .scene-card {
+            background: white;
+            border-radius: 28px;
+            padding: 1.8rem 1.3rem 2rem;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.02), 0 1px 3px rgba(0, 0, 0, 0.05);
+            transition: transform 0.2s, box-shadow 0.25s;
+            border: 1px solid #eeebe5;
+        }
+
+        .scene-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.04), 0 2px 6px rgba(0, 0, 0, 0.06);
+        }
+
+        .scene-card h3 {
+            font-size: 1.3rem;
+            font-weight: 430;
+            letter-spacing: 0.3px;
+            margin-bottom: 0.7rem;
+            color: #262a28;
+            display: flex;
+            align-items: center;
+            gap: 0.15rem;
+        }
+
+        .scene-card h3 span {
+            font-size: 1.5rem;
+            margin-right: 0.35rem;
+        }
+
+        .scene-card p {
+            color: #3b403d;
+            font-size: 0.96rem;
+            margin-bottom: 0.2rem;
+        }
+
+        /* 常见说明 —— FAQ 摘要 折叠感 */
+        .faq-summary {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem 2.2rem;
+            margin: 2.6rem 0 1rem;
+            background: #f4f1ec;
+            padding: 1.8rem 2rem;
+            border-radius: 40px;
+        }
+
+        @media (max-width: 640px) {
+            .faq-summary {
+                grid-template-columns: 1fr;
+                padding: 1.5rem 1.2rem;
+            }
+        }
+
+        .faq-item h4 {
+            font-weight: 500;
+            font-size: 1rem;
+            margin-bottom: 0.2rem;
+            color: #2c322e;
+            display: flex;
+            align-items: baseline;
+            gap: 0.6rem;
+        }
+
+        .faq-item h4::before {
+            content: '▹';
+            color: #bf6f4a;
+            font-size: 1.1rem;
+        }
+
+        .faq-item p {
+            color: #515a55;
+            font-size: 0.9rem;
+            padding-left: 1.4rem;
+            border-left: 2px solid #ddd7ce;
+            margin-top: 0.1rem;
+        }
+
+        /* 额外的消息 / 声明 */
+        .notice {
+            background: #edebe7;
+            border-radius: 100px;
+            padding: 0.9rem 1.8rem;
+            text-align: center;
+            font-size: 0.9rem;
+            color: #3b3f3c;
+            max-width: 700px;
+            margin: 2rem auto 0.5rem;
+            border: 1px solid #e0d9d0;
+        }
+
+        .footer {
+            text-align: center;
+            padding: 2rem 1rem 2.5rem;
+            border-top: 1px solid #ded9d1;
+            margin-top: 1.8rem;
+            color: #696e69;
+            font-size: 0.8rem;
+            letter-spacing: 0.5px;
+        }
+
+        .footer a {
+            font-weight: 400;
+            color: #696e69;
+            border-bottom: 1px dotted #b9b2a8;
+        }
+
+        .footer a:hover {
+            color: #bf6f4a;
+            border-bottom-color: #bf6f4a;
+        }
+
+        /* 响应式细节 */
+        @media (max-width: 480px) {
+            .hero h1 {
+                font-size: 1.9rem;
+            }
+            .top-nav {
+                gap: 0.6rem 1.8rem;
+                justify-content: space-around;
+            }
+            .scene-card {
+                padding: 1.3rem 1rem;
+            }
+        }
+
+        /* 辅助 */
+        .sr-only {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            overflow: hidden;
+            clip: rect(0 0 0 0);
+            white-space: nowrap;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- 顶部导航（锚点，仅示意，无JS） -->
+    <nav class="top-nav" aria-label="页面导航">
+        <a href="#intro">简述</a>
+        <a href="#scenes">场景</a>
+        <a href="#faq">说明</a>
+        <a href="https://home-yijinji.com" target="_blank" rel="noopener">一竞技</a>
+    </nav>
+
+    <!-- 深色头图 -->
+    <header class="hero">
+        <h1>一竞技</h1>
+        <div class="sub">轻量叙事 · 场景衔接</div>
+        <div class="tagline">从日常到专业，保持自然克制</div>
+    </header>
+
+    <!-- 主体内容 -->
+    <main class="container">
+
+        <!-- 介绍段落，内嵌链接 -->
+        <section class="intro" id="intro">
+            <p>
+                一个平台的调性往往藏在它的使用方式里，而非口号。<a href="https://home-yijinji.com">一竞技</a> 
+                并没有试图覆盖所有场景，而是围绕着「参与、反馈、调整」这几个基本动作来构建体验。
+                无论是内容消费还是轻度协作，界面始终退到背后，让信息本身成为焦点。
+            </p>
+            <p style="margin-top:0.8rem;font-size:0.95rem;color:#5c615e;">
+                下面三个模块分别对应三种常见的介入状态：学习、比较、同步。
+            </p>
+        </section>
+
+        <!-- 三个场景模块 -->
+        <section id="scenes">
+            <div class="scenes">
+                <div class="scene-card">
+                    <h3><span>📘</span> 信息梳理</h3>
+                    <p>面对结构不明的资料时，大多数人倾向于先建立框架。这个场景更接近「内容策展」—— 从碎片中提取出可读的线索，并允许随时调整层级。无论是个人笔记还是团队共享，梳理过程本身就构成了理解的一部分。</p>
+                </div>
+                <div class="scene-card">
+                    <h3><span>⚖️</span> 对照与权衡</h3>
+                    <p>当选项增多，我们常常需要并列比较。在方案、版本或参数之间快速切换，高亮差异、隐藏无关维度。这种场景淡化操作感，强调「看」的效率，减少决策过程中的认知负荷。</p>
+                </div>
+                <div class="scene-card">
+                    <h3><span>🔄</span> 状态同步</h3>
+                    <p>多设备或多人之间保持上下文一致，从来不是简单的复制粘贴。这里涉及的是轻量的状态传递：稍后处理、已读标记、修订建议。理想情况下，同步应该像呼吸一样自然，不打断当前流程。</p>
+                </div>
+            </div>
+            <!-- 补充一句，自然连接 -->
+            <p style="margin-top:1.2rem;font-size:0.93rem;color:#5f6561;text-align:center;">
+                三个模块并非孤立，实际使用时常常叠加。这也是为什么 <a href="https://home-yijinji.com">一竞技</a> 保留了高度可定制的接口。
+            </p>
+        </section>
+
+        <!-- 常见说明 FAQ 摘要 -->
+        <section id="faq">
+            <div class="faq-summary">
+                <div class="faq-item">
+                    <h4>是否支持私有部署？</h4>
+                    <p>基础功能完全在线使用，大部分数据处理在本地完成。如果需要独立环境，可参考文档中的自托管指引。</p>
+                </div>
+                <div class="faq-item">
+                    <h4>适合多大的团队？</h4>
+                    <p>从个人到中等规模团队都有不错的适配性。没有强制的席位限制，权限粒度可根据实际需求调整。</p>
+                </div>
+                <div class="faq-item">
+                    <h4>数据导出格式？</h4>
+                    <p>支持常见的 Markdown、JSON 以及纯文本。部分结构化内容可以通过插件导出为表格或 PDF。</p>
+                </div>
+                <div class="faq-item">
+                    <h4>与其他工具的衔接</h4>
+                    <p>通过 Webhook 和剪藏扩展可以接入常用工作流。同时也保留了简洁的 API 供开发者使用。</p>
+                </div>
+            </div>
+            <p style="font-size:0.88rem;color:#676d68;text-align:right;max-width:600px;margin-left:auto;">
+                更多细节可以在页面内探索，或者直接访问 <a href="https://home-yijinji.com">一竞技</a> 了解最新动态。
+            </p>
+        </section>
+
+        <!-- 一条克制说明（非承诺，真实语气） -->
+        <div class="notice">
+            ⚡ 本页侧重介绍场景可能性，不构成任何功能承诺。界面与特性以实际版本为准。
+        </div>
+
+    </main>
+
+    <!-- footer 包含品牌名 & 再次自然链接 -->
+    <footer class="footer">
+        <div>
+            <a href="https://home-yijinji.com" target="_blank" rel="noopener">一竞技</a> 
+            · 保持精简 · 叙述感常在
+        </div>
+        <div style="margin-top:0.6rem;opacity:0.65;">
+            页面内容仅为示例展示，不收集任何信息。
+        </div>
+    </footer>
+
+</body>
+</html>
