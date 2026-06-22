@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.5">
+    <title>一竞技 · 快速识别与用途速览</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+            background: #f6f9fc;
+            color: #1e2c3a;
+            line-height: 1.7;
+            padding: 1.5rem;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .page {
+            max-width: 860px;
+            width: 100%;
+        }
+
+        .hero {
+            margin-bottom: 3.2rem;
+            text-align: left;
+            border-bottom: 1px solid #d0e1ec;
+            padding-bottom: 1.8rem;
+        }
+
+        .hero h1 {
+            font-size: 2.4rem;
+            font-weight: 500;
+            letter-spacing: -0.02em;
+            color: #0a2b3b;
+            margin-bottom: 0.4rem;
+        }
+
+        .hero .badge {
+            display: inline-block;
+            background: #d7edf5;
+            color: #0f5469;
+            font-size: 0.9rem;
+            font-weight: 500;
+            padding: 0.2rem 0.9rem;
+            border-radius: 40px;
+            margin-top: 0.2rem;
+            letter-spacing: 0.3px;
+            border: 1px solid #b7dbe9;
+        }
+
+        .lead {
+            font-size: 1.2rem;
+            margin-top: 1.2rem;
+            color: #2a4658;
+            border-left: 4px solid #3f9eb5;
+            padding-left: 1.2rem;
+            background: #ecf5fa;
+            padding: 1rem 1.2rem;
+            border-radius: 0 12px 12px 0;
+        }
+
+        .grid-cards {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+            margin: 2.5rem 0;
+        }
+
+        .card {
+            background: white;
+            border-radius: 24px;
+            padding: 1.6rem 1.5rem;
+            box-shadow: 0 4px 12px rgba(28, 80, 100, 0.06);
+            border: 1px solid #e2eef5;
+            transition: box-shadow 0.2s, border-color 0.15s;
+        }
+
+        .card:hover {
+            border-color: #9fcbd9;
+            box-shadow: 0 8px 18px rgba(42, 110, 130, 0.08);
+        }
+
+        .card h3 {
+            font-size: 1.25rem;
+            font-weight: 500;
+            margin-bottom: 0.5rem;
+            color: #0a3749;
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+        }
+
+        .card h3 span {
+            background: #b7dfed;
+            width: 8px;
+            height: 8px;
+            border-radius: 12px;
+            display: inline-block;
+            margin-right: 0.3rem;
+        }
+
+        .card p {
+            font-size: 0.96rem;
+            color: #2c4a5a;
+            margin-bottom: 0.3rem;
+        }
+
+        .card .dot {
+            color: #3f9eb5;
+            font-weight: 400;
+        }
+
+        .section-title {
+            font-size: 1.7rem;
+            font-weight: 450;
+            margin: 2.4rem 0 0.2rem 0;
+            color: #09303f;
+            letter-spacing: -0.3px;
+        }
+
+        .section-sub {
+            color: #3e6a7c;
+            font-size: 1rem;
+            margin-bottom: 1.6rem;
+            border-bottom: 1px dashed #c3dbe8;
+            padding-bottom: 0.3rem;
+        }
+
+        .paragraph-block {
+            background: white;
+            border-radius: 28px;
+            padding: 1.6rem 2rem;
+            margin: 2rem 0;
+            border: 1px solid #deeef6;
+            box-shadow: 0 2px 6px rgba(36, 92, 110, 0.03);
+        }
+
+        .paragraph-block p {
+            margin-bottom: 1.2rem;
+            font-size: 1.02rem;
+        }
+
+        .paragraph-block p:last-child {
+            margin-bottom: 0;
+        }
+
+        .pullquote {
+            background: #e4f0f8;
+            border-left: 6px solid #3f9eb5;
+            padding: 1.2rem 1.8rem;
+            border-radius: 20px;
+            margin: 2rem 0;
+            font-style: normal;
+            color: #143f50;
+            font-size: 1.05rem;
+        }
+
+        .pullquote::before {
+            content: "❝ ";
+            font-size: 1.5rem;
+            color: #3f9eb5;
+        }
+
+        .faq-mini {
+            margin: 2.5rem 0 2rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .faq-item {
+            background: white;
+            border-radius: 36px;
+            padding: 0.9rem 1.6rem;
+            border: 1px solid #d6e6ef;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: baseline;
+            gap: 0.3rem 0.8rem;
+        }
+
+        .faq-q {
+            font-weight: 500;
+            color: #0f3e50;
+            background: #dcecf6;
+            padding: 0.05rem 1rem;
+            border-radius: 40px;
+            font-size: 0.95rem;
+        }
+
+        .faq-a {
+            color: #1c5367;
+            font-size: 0.98rem;
+        }
+
+        .visit-statement {
+            background: #eaf3f9;
+            border-radius: 80px;
+            padding: 1rem 2rem;
+            margin: 2.6rem 0 1.8rem;
+            text-align: center;
+            border: 1px solid #b7d2e2;
+            font-size: 1.1rem;
+            color: #103d4d;
+        }
+
+        .visit-statement a {
+            color: #10647e;
+            text-decoration: none;
+            font-weight: 500;
+            border-bottom: 2px solid #3f9eb5;
+            padding-bottom: 1px;
+            transition: background 0.15s;
+        }
+
+        .visit-statement a:hover {
+            background: #d2e9f2;
+            border-bottom-color: #1d748e;
+        }
+
+        .footer-note {
+            margin-top: 3rem;
+            font-size: 0.85rem;
+            color: #4f788b;
+            border-top: 1px solid #c6dce8;
+            padding-top: 1.6rem;
+            text-align: center;
+        }
+
+        /* 移动端调整 */
+        @media (max-width: 640px) {
+            body {
+                padding: 0.9rem;
+            }
+            .hero h1 {
+                font-size: 1.8rem;
+            }
+            .lead {
+                font-size: 1.05rem;
+                padding: 0.9rem 1rem;
+            }
+            .grid-cards {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+            .card {
+                padding: 1.2rem 1.2rem;
+            }
+            .section-title {
+                font-size: 1.4rem;
+            }
+            .paragraph-block {
+                padding: 1.2rem 1.2rem;
+            }
+            .pullquote {
+                padding: 1rem 1.2rem;
+            }
+            .faq-item {
+                padding: 0.7rem 1rem;
+                border-radius: 28px;
+            }
+            .visit-statement {
+                padding: 0.8rem 1.2rem;
+                border-radius: 40px;
+                font-size: 1rem;
+            }
+        }
+
+        @media (max-width: 400px) {
+            .hero h1 {
+                font-size: 1.6rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="page">
+        <!-- hero 简洁博客入口 -->
+        <div class="hero">
+            <h1>一竞技 · 怎么用？</h1>
+            <div class="badge">快速识别 · 站点用途</div>
+            <div class="lead">
+                如果你第一次看到「一竞技」这个网站，可能会好奇它到底提供什么。简单说：它是一个围绕竞技内容与互动体验的轻量平台，没有花哨的包装，直接面向想了解或参与线上竞技场景的人。
+            </div>
+        </div>
+
+        <!-- 网格卡片：四个特点，更贴近识别用途 -->
+        <div class="grid-cards">
+            <div class="card">
+                <h3><span></span> 一眼识别</h3>
+                <p>进入站点后，你首先看到的不是广告，而是清晰的模块划分：项目、动态、信息区。每个版块都指向具体的竞技相关功能，没有多余跳转。</p>
+            </div>
+            <div class="card">
+                <h3><span></span> 场景直接</h3>
+                <p>不论你是想浏览近期赛程，还是了解某个竞技项目的规则，<strong>一竞技</strong> 把常用入口放在表层，省去翻找的麻烦。适合快速获取信息。</p>
+            </div>
+            <div class="card">
+                <h3><span></span> 克制排版</h3>
+                <p>界面以卡片和列表为主，视觉重心落在内容上。蓝绿点缀色用来区分可交互元素，不干扰阅读节奏。移动端同样保持这种清爽感。</p>
+            </div>
+            <div class="card">
+                <h3><span></span> 日常可用</h3>
+                <p>没有强制注册或弹窗，大部分浏览即开即用。对于只想简单了解竞技动态的用户来说，<a href="https://web-yijinji.com" style="color: #10647e; text-decoration: underline; text-underline-offset: 4px;">一竞技</a> 是一个低门槛的起点。</p>
+            </div>
+        </div>
+
+        <!-- 多段正文：从用户识别角度展开 -->
+        <div class="paragraph-block">
+            <p>
+                很多人打开一个新网站，第一反应是：「这网站是干嘛的？」—— 这种困惑很真实。一竞技在设计时似乎也考虑到了这一点：它的首屏没有大段介绍，而是直接用标题和几个入口告诉你这里有什么。比如你会看到「项目」「动态」之类的词，点进去就是对应的内容列表。这种直给的方式对只想快速确认网站用途的人来说，很友好。
+            </p>
+            <p>
+                再往下翻，是一些近期更新的摘要和常见问题。没有复杂的分类树，也没有强行引导你注册。如果你只是想查某个竞技项目的基础信息，或者看看最近有什么活动，基本上花一两分钟就能找到。整个页面的节奏偏平实，没有太多刻意营造的“紧迫感”。
+            </p>
+        </div>
+
+        <!-- 引用提示：生活化但保留正式感 -->
+        <div class="pullquote">
+            一位使用者提到过：“我其实不太喜欢那些一打开就弹窗的网站，一竞技至少让我先看到内容，再决定要不要继续。” 这种克制反而让人更愿意停留。
+        </div>
+
+        <!-- 更具体的段落：贴近日常场景 -->
+        <div class="paragraph-block">
+            <p>
+                举个例子：假设你想了解某个竞技项目的近期安排，在大多数网站你可能需要先注册、登录、再跳转两三个页面。但在 <a href="https://web-yijinji.com" style="color: #10647e; text-decoration: underline; text-underline-offset: 3px;">一竞技</a> 里，你直接通过首页的「动态」区块就能看到按时间排列的条目。每个条目都带有简短说明，点击后可以查看详情。整个过程不需要额外操作，很适合碎片时间浏览。
+            </p>
+            <p>
+                另外，网站也留了一些提示性内容，比如某个功能正在调整、或者某类信息暂时不可用。这些提示用的都是很平常的语气，没有夸张的倒计时或诱导文字。整体给人的感觉是：这是一个在认真做内容展示的站点，而不是一个流量收割页面。
+            </p>
+        </div>
+
+        <!-- 微型 FAQ 摘要（不是完整章节，但有助于识别用途） -->
+        <div class="section-title" style="margin-top: 2rem;">常见疑问·速览</div>
+        <div class="section-sub">一些你可能关心的小问题，答案就在页面里</div>
+
+        <div class="faq-mini">
+            <div class="faq-item">
+                <span class="faq-q">需要登录才能看内容吗？</span>
+                <span class="faq-a">大部分浏览不需要登录，仅部分互动功能可能需要。</span>
+            </div>
+            <div class="faq-item">
+                <span class="faq-q">一竞技 只适合老手吗？</span>
+                <span class="faq-a">不，它的结构对新手也很友好，首页就能看到主要用途。</span>
+            </div>
+            <div class="faq-item">
+                <span class="faq-q">内容更新频率如何？</span>
+                <span class="faq-a">动态区域保持常规更新，具体项目以站点实际显示为准。</span>
+            </div>
+        </div>
+
+        <!-- 访问句：自然嵌入链接，不使用“进入、点击、访问”等词 -->
+        <div class="visit-statement">
+            如果你对竞技内容感兴趣，不妨直接去 <a href="https://web-yijinji.com">一竞技</a> 看看它的结构和内容是否符合你的需求。页面很轻，加载也快。
+        </div>
+
+        <!-- 结尾 -->
+        <div class="footer-note">
+            简洁博客式介绍 · 从用户识别用途出发 · 蓝绿色点缀
+        </div>
+    </div>
+</body>
+</html>
